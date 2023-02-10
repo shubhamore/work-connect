@@ -10,7 +10,7 @@ router.get('/login',(req,res)=>res.render('login'));
 //register 
 router.get('/registerClient',(req,res)=>res.render('registerClient'));
 router.get('/registerWorker',(req,res)=>res.render('registerWorker'));
-router.get('/registerWC',(req,res)=>res.render('registerWC'));
+
 
 
 router.post('/registerClient',(req,res)=>{

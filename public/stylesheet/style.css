@@ -1,3 +1,60 @@
+body::before {
+    display: block;
+    content: '';
+    height: 60px;
+  }
+
 .hel{
     background-color: blue;
+}
+.welcome-home{
+    padding: 5rem 0;
+    min-height: 75vh;
+}
+.welcome-home div{
+    height: 75%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.welcome-home img{
+    width: 75%;
+}
+@media screen and (min-width:991px) {
+    .welcome-home img{
+        width: 50%;
+    }
+}
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.welcome-started{
+    width: 50%;
+}
+@media screen and (max-width:940px) {
+    .welcome-started{
+        width: 65%;
+    }
+}
+@media screen and (max-width:730px) {
+    .welcome-started{
+        width: 80%;
+    }
+}
+@media screen and (max-width:615px) {
+    .welcome-started{
+        width: 95%;
+    }
+}
+@media screen and (max-width:525px) {
+    .welcome-started{
+        width: 100%;
+    }
+    .welcome-started h4{
+        font-size: 1.45rem;
+
+    }
 }

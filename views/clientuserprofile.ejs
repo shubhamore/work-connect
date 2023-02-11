@@ -25,33 +25,33 @@
 
 <section class="p-5 mt-5">
     <div class="container">
-        <form style="width:450px; margin:auto" class="pt-4 pe-5 ps-5 rounded-3">
+        <form style="width:450px; margin:auto" class="pt-4 pe-5 ps-5 rounded-3" method="POST" action="/editclientprofile">
             <div class="form-floating mb-4">
-                <input  placeholder="Name" type="text" id="form6Example1" class="form-control" />
+                <input  placeholder="Name" name="name" type="text" id="form6Example1" class="form-control" />
                 <label class="Username" for="form6Example1">Name</label>
             </div>
             
             <div class="form-floating mb-4">
-                <input  placeholder="Udername" type="text" id="form6Example2" class="form-control" />
+                <input name="Username"  placeholder="Username" type="text" id="form6Example2" class="form-control" />
                 <label class="form-label" for="form6Example2">Username</label>
             </div>
             
 
             <!-- Email input -->
             <div class="form-floating mb-4">
-                <input  placeholder="E-mail" type="email" id="form6Example5" class="form-control" />
+                <input name="email"  placeholder="E-mail" type="email" id="form6Example5" class="form-control" />
                 <label class="form-label" for="form6Example5">Email</label>
             </div>
 
             <!-- Number input -->
             <div class="form-floating mb-4">
-                <input  placeholder="Phone Number" type="number"  placeholder="Leave a comment here" id="form6Example6" class="form-control" />
+                <input name="contact_no"  placeholder="Phone Number" type="number"  placeholder="Leave a comment here" id="form6Example6" class="form-control" />
                 <label class="form-label" for="form6Example6">Phone</label>
             </div>
 
             <!-- Message input -->
             <div class="form-floating">
-                <textarea class="form-control"  placeholder="Leave a comment here" id="form6Example7" style="height: 125px"></textarea>
+                <textarea name="location" class="form-control"  placeholder="Leave a comment here" id="form6Example7" style="height: 125px"></textarea>
                 <label for="form6Example7">Address</label>
             </div>
 

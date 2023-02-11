@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand bg-dark navbar-dark py-3 fixed-top">
+  <div class="container">
+    <a href="#" class="navbar-brand">Work<span class="text-danger fw-bold">Connect</span></a>
+    <ul class="navbar-nav ms-auto align-center">
+      <li class="nav-item mx-3" style="display: flex; align-items: center; font-size: 1.5rem;">
+        <a href="/client" class="nav-link active">New Issues</a>
+      </li>
+      <li class="nav-item mx-3" style="display: flex; align-items: center; font-size: 1.5rem;">
+        <a href="/client/pastIssues" class="nav-link">Old Issues</a>
+      </li>
+      <li class="nav-item mx-3" style="display: flex; align-items: center;">
+        <a class="nav-link" href="/client/userprofile"><i class="bi bi-bell-fill" style="font-size:30px;"></i></a>
+      </li>
+      <li class="nav-item mx-3" style="display: flex; align-items: center;">
+        <a class="nav-link" href="/client/userprofile"><i class="bi bi-person-circle" style="font-size:30px;"></i></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<section class="p-5 text-center">
+  <div class="d-flex justify-content-between align-center flex-column flex-md-row">
+    <div class="container center p-sm-5" style="width: 500px; max-width: 95%; min-height: 80vh;">
+      <div class="client-home-heading">
+        <h1>Have any Issues?</h1>
+        <h2 style="margin-bottom: 35px;">We're Here To Help</h2>
+      </div>
+      <form style="width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Open this select categories</option>
+          <option value="1">carpentary</option>
+          <option value="2">electrician</option>
+          <option value="3">cleaning</option>
+        </select>
+        <div class="form-floating" style="margin: 20px 0;">
+          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+            style="height: 125px"></textarea>
+          <label for="floatingTextarea">Describe Your Issue</label>
+        </div>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div
+      class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center mx-auto client-home-image">
+      <img class="img-fluid" src="images/ideas.png" alt="" style="max-height: 90vh;">
+    </div>
+  </div>
+</section>

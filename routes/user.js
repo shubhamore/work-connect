@@ -1,22 +1,27 @@
 const express= require('express');
 const router=express.Router();
 const bcrypt = require('bcryptjs');
-const passport =require('passport');
+const alert=require("alert");
+// const passport =require('passport');
 
 const User =require('../models/User');
+const Client =require('../models/Client');
+const Worker =require('../models/worker');
 //login
 router.get('/login',(req,res)=>res.render('login'));
 
 //register 
-router.get('/register',(req,res)=>res.render('register'));
+router.get('/registerClient',(req,res)=>res.render('registerClient'));
+router.get('/registerWorker',(req,res)=>res.render('registerWorker'));
 
 
-router.post('/register',(req,res)=>{
-    const {name,email,password,password2}=req.body;
+
+router.post('/registerClient',(req,res)=>{
+    const {name,contact,longitude,latitude,password,password2}=req.body;
 
     let errors =[];
     //checking if required fields are filled or not
-    if(!name || !email || !password || !password2){
+    if(!name || !contact || !longitude || !latitude || !password || !password2){
         errors.push({msg: 'Please fill the required fields'});
     }
 
@@ -29,58 +34,133 @@ router.post('/register',(req,res)=>{
         errors.push({msg: 'Password shoud be of 6 characters'})
     }
     if (errors.length>0) {
-        res.render('register',{
+        res.render('registerClient',{
             errors,
-            email,
+            name,
             password,
             password2
         });
     } else {
         // validation done
-        User.findOne({email:email})
+        Client.findOne({name:name})
         .then(user => {
             if(user){
-                errors.push({msg :'Email already registered'});
-                res.render('register',{
+                errors.push({msg :'UserName already registered'});
+                res.render('registerClient',{
                     errors,
-                    email,
+                    name,
                     password,
                     password2
                 });  
             }
             else{
-                const newUser =new User({
-                    name,
-                    email,
-                    password
+                const newClient =new Client({
+                    name:req.body.name,
+                    contact:req.body.contact,
+                    longitude:req.body.longitude,
+                    latitude:req.body.latitude,
+                    password:req.body.password
                 });
+                newClient.save()
+                res.redirect('/user/login');
+            }
+        });
+    }
+});
+router.post('/registerWorker',(req,res)=>{
+    const {name,contact,longitude,latitude,experience,field_work,password,password2}=req.body;
 
-                //hashing the password
-                bcrypt.genSalt(10,(err,salt)=>
-                bcrypt.hash(newUser.password,salt,(err,hash)=>{
-                    if (err) throw err;
+    let errors =[];
+    //checking if required fields are filled or not
+    if(!name || !contact ||!longitude ||!latitude ||!experience || !field_work || !password || !password2){
+        errors.push({msg: 'Please fill the required fields'});
+    }
 
-                    newUser.password = hash;    
-                    //save the new user
-                    newUser.save()
-                    .then(user=>{
-                        req.flash('success_msg','You are now registered and can log in');
-                        res.redirect('/user/login');
-                    })
-                    .catch(err=>console.log(err));
-                }))
+    //password check
+    if(password!==password2){
+        errors.push({msg: 'Passwords not matched'});
+    }
+
+    if (password.length<6) {
+        errors.push({msg: 'Password shoud be of 6 characters'})
+    }
+    if (errors.length>0) {
+        res.render('registerWorker',{
+            errors,
+            name,
+            password,
+            password2
+        });
+    } else {
+        // validation done
+        Worker.findOne({name:name})
+        .then(user => {
+            if(user){
+                errors.push({msg :'Username already registered'});
+                res.render('registerWorker',{
+                    errors,
+                    name,
+                    password,
+                    password2
+                });  
+            }
+            else{
+                const newWorkerUser =new Worker({
+                    name:req.body.name,
+                    contact:req.body.contact,
+                    longitude:req.body.longitude,
+                    latitude:req.body.latitude,
+                    experience:req.body.experience,
+                    field_work:req.body.field_work,
+                    password:req.body.password
+                });
+                newWorkerUser.save()
+                res.redirect('/user/login');
             }
         });
     }
 });
 
-//login
-router.post('/login',(req, res,next)=>{
-    passport.authenticate('local',{
-        successRedirect: '/dashboard',
-        failureRedirect: '/user/login',
-        failureFlash: true
-    })(req,res,next);
+// const finddoc=async(value)=>{
+//     try{
+//         const data=await Client.find({name: value});
+//         console.log(data)
+//         return data
+//     }catch(error){
+//         console.log(error.message)
+//     }
+// }
+
+const findcountc=async(value)=>{
+    try{
+        const data=await Client.find({name: value}).countDocuments();
+        return data
+    }catch(error){
+        console.log(error.message)
+    }
+}
+
+const findcountw=async(value)=>{
+    try{
+        const data=await Worker.find({name: value}).countDocuments();
+        return data
+    }catch(error){
+        console.log(error.message)
+    }
+}
+
+// login
+router.post('/login',async (req, res)=>{
+    const result1=findcountc(req.body.name)
+    const result2=findcountw(req.body.name)
+    if(await result1>0){
+        console.log("found in client")
+        res.render('client')
+    }
+    else if(await result2>0){
+        console.log("found in worker")
+        res.render('worker.ejs')
+    }
 });
 
 router.get('/logout',(req, res,next)=>{
@@ -91,4 +171,7 @@ router.get('/logout',(req, res,next)=>{
     });
 });    
 
-module.exports = router;
+
+router.get('/')
+
+module.exports = router

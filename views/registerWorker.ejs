@@ -1,0 +1,104 @@
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+      <div class="card card-body">
+        <h1 class="text-center mb-3">
+          <i class="fas fa-user-plus"></i> Register
+        </h1>
+       <%- include ("./partials/messages.ejs") %>
+        <form action="/user/registerWorker" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="name"
+              id="name"
+              name="name"
+              class="form-control"
+              placeholder="Enter Name"
+              value="<%= typeof name != 'undefined' ? name : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="contact">contact</label>
+            <input
+              type="contact"
+              id="contact"
+              name="contact"
+              class="form-control"
+              placeholder="Enter contact"
+              value="<%= typeof contact != 'undefined' ? contact : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="longitude">Enter Locations details</label>
+            <input
+              type="longitude"
+              id="longitude"
+              name="longitude"
+              class="form-control"
+              placeholder="Enter longitude"
+              value="<%= typeof longitude != 'undefined' ? longitude : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <!-- <label for="latitude">latitude</label> -->
+            <input
+              type="latitude"
+              id="latitude"
+              name="latitude"
+              class="form-control"
+              placeholder="Enter latitude"
+              value="<%= typeof latitude != 'undefined' ? latitude : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="experience">Enter years of Experience</label>
+            <input
+              type="experience"
+              id="experience"
+              name="experience"
+              class="form-control"
+              placeholder="Enter years"
+              value="<%= typeof experience != 'undefined' ? experience : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="field_work">Enter Field of work</label>
+            <input
+              type="field_work"
+              id="field_work"
+              name="field_work"
+              class="form-control"
+              placeholder="Enter Field of work"
+              value="<%= typeof field_work != 'undefined' ? field_work : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Create Password"
+              value="<%= typeof password != 'undefined' ? password : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password2">Confirm Password</label>
+            <input
+              type="password"
+              id="password2"
+              name="password2"
+              class="form-control"
+              placeholder="Confirm Password"
+              value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">
+            Register
+          </button>
+        </form>
+        <p class="lead mt-4">Have An Account? <a href="/user/login">Login</a></p>
+      </div>
+    </div>
+  </div>

@@ -14,5 +14,8 @@ router.get('/client',(req,res)=>{
 router.get('/client/pastIssues',(req,res)=>{
     res.render('pastIssues')
 })
+router.get('/client/userprofile',(req,res)=>{
+    res.render('userprofile')
+})
 
 module.exports = router;

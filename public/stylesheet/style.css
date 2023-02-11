@@ -83,3 +83,6 @@ body::before {
         font-size: 1.25rem;
     }
 }
+.past-max-w{
+    max-width: 70%;
+}

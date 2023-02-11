@@ -11,6 +11,7 @@ router.get('/dashboard',(req,res)=>res.render('dashboard'));
 router.get('/worker',(req,res)=>res.render('worker_index'));
 router.get('/worker_all',(req,res)=>res.render('all_works'));
 router.get('/worker_applications',(req,res)=>res.render('my_applications'));
+router.get('/userprofile',(req,res)=>res.render('userprofile'));
 
 
 //this is only for test----delete this afterwards

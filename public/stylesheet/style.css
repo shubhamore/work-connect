@@ -58,28 +58,3 @@ body::before {
 
     }
 }
-.client-home-image{
-    width: 50%;;
-}
-.client-home-heading h1{
-    font-size: 3.5rem;
-}
-.client-home-heading h2{
-    font-size: 1.75rem;
-}
-@media screen and (max-width:550px) {
-    .client-home-image{
-        width: 75%;
-    }
-}
-@media screen and (max-width:410px) {
-    .client-home-image{
-        width: 100%;
-    }
-    .client-home-heading h1{
-        font-size: 2rem;
-    }
-    .client-home-heading h2{
-        font-size: 1.25rem;
-    }
-}

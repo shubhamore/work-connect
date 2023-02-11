@@ -159,7 +159,7 @@ router.post('/login',async (req, res)=>{
     }
     else if(await result2>0){
         console.log("found in worker")
-        res.render('worker.ejs')
+        res.render('worker_index.ejs')
     }
 });
 

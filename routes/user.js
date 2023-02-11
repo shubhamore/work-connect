@@ -184,9 +184,9 @@ const findcountc=async(value)=>{
     }
 }
 
-const findcountw=async(value)=>{
+const findcountw=async(value1,value2)=>{
     try{
-        const data=await Worker.find({username: value}).countDocuments();
+        const data=await Worker.find({$and: [{username: value1},{password:value2}]}).countDocuments();
         return data
     }catch(error){
         console.log(error.message)
@@ -195,8 +195,8 @@ const findcountw=async(value)=>{
 
 // login
 router.post('/login',async (req, res)=>{
-    const result1=findcountc(req.body.name)
-    const result2=findcountw(req.body.name)
+    const result1=findcountc(req.body.name,req.body.password)
+    const result2=findcountw(req.body.name,req.body.password)
     if(await result1>0){
         console.log("found in client")
         res.redirect('./client')

@@ -1,22 +1,76 @@
 <nav class="navbar navbar-expand bg-dark navbar-dark py-3 fixed-top">
     <div class="container">
-        <a href="/client" class="navbar-brand">Work<span class="text-danger fw-bold">Connect</span></a>
+        <a href="#" class="navbar-brand">Work<span class="text-danger fw-bold">Connect</span></a>
+        <!-- <a href="/user/login" class="btn btn-info btn-block">Login</a> -->
+        <!-- <i class="bi bi-bell-fill" style="color: white;"></i>
+        <a href="/client/userprofile"><i class="bi bi-person-circle h2" style="color: white;"></i></a> -->
         <ul class="navbar-nav ms-auto align-center">
             <li class="nav-item mx-3" style="display: flex; align-items: center; font-size: 1.5rem;">
-                <a href="/client" class="nav-link">New Issues</a>
+                <a href="/worker" class="nav-link">Recommended</a>
+
             </li>
             <li class="nav-item mx-3" style="display: flex; align-items: center; font-size: 1.5rem;">
-                <a href="/client/pastIssues" class="nav-link">Old Issues</a>
+                <a href="/worker_all" class="nav-link">All works</a>
             </li>
+            <li class="nav-item mx-3" style="display: flex; align-items: center; font-size: 1.5rem;">
+                <a href="/worker_applications" class="nav-link">My Applications</a>
+            </li>
+            <!-- <li class="nav-item mx-3" style="display: flex; align-items: center;">
+                <a class="nav-link" href="/client/clientuserprofile"><i class="bi bi-bell-fill"
+                        style="font-size:30px;"></i></a>
+            </li> -->
             <li class="nav-item mx-3" style="display: flex; align-items: center;">
-                <a class="nav-link" href="/client/userprofile"><i class="bi bi-bell-fill"
+                <a class="nav-link active" href="/client/clientuserprofile"><i class="bi bi-person-circle"
                         style="font-size:30px;"></i></a>
             </li>
             <li class="nav-item mx-3" style="display: flex; align-items: center;">
-                <a class="nav-link active" href="/client/userprofile"><i class="bi bi-person-circle"
-                        style="font-size:30px;"></i></a>
+                <a class="nav-link active" href="/"><i class="bi bi-power" style="font-size:30px; color:red"></i></a>
             </li>
         </ul>
     </div>
 </nav>
 
+<section class="p-5 mt-5">
+    <div class="container">
+        <form style="width:450px; margin:auto" class="pt-4 pe-5 ps-5 rounded-3"  method="POST" action="/editworkerprofile">
+            <div class="form-floating mb-4">
+                <input name="name" placeholder="Name" type="text" id="form6Example1" class="form-control" />
+                <label class="Username" for="form6Example1">Name</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input name="worker_id" placeholder="Udername" type="text" id="form6Example2" class="form-control" />
+                <label class="form-label" for="form6Example2">Username</label>
+            </div>
+
+
+            <!-- Email input -->
+            <div class="form-floating mb-4">
+                <input name="email" placeholder="E-mail" type="email" id="form6Example5" class="form-control" />
+                <label class="form-label" for="form6Example5">Email</label>
+            </div>
+
+            <!-- Number input -->
+            <div class="form-floating mb-4">
+                <input name="contact_no" placeholder="Phone Number" type="number" placeholder="Leave a comment here" id="form6Example6"
+                    class="form-control" />
+                <label class="form-label" for="form6Example6">Phone</label>
+            </div>
+
+
+            <div class="form-floating mb-4">
+                <input name="location" placeholder="city" type="text" id="form6Example2" class="form-control" />
+                <label class="form-label" for="form6Example2">city</label>
+            </div>
+            <div class="form-floating mb-4">
+                <input name="field_work" placeholder="Udername" type="text" id="form6Example2" class="form-control" />
+                <label class="form-label" for="form6Example2">catagories</label>
+            </div>
+
+            <!-- Submit button -->
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success btn-block mb-4 mt-4">Submit Change</button>
+            </div>
+        </form>
+    </div>
+</section>

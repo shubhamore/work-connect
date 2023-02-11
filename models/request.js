@@ -1,24 +1,20 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-    work_id: {
-        type: 'string',
-        required: true
-    },
     client_id:{
         type: 'string',
         required: true
     },
-    work:{
+    work_id:{
         type: 'string',
         required: true
     },
-    location:{
+    description:{
         type: 'string',
         required: true
     }
 });
 
-const WorkRequests =mongoose.model('WorkRequests',UserSchema);
+const Request =mongoose.model('Request',UserSchema);
 
-module.exports = WorkRequests;
+module.exports = Request;

@@ -17,7 +17,7 @@ router.get('/registerWorker',(req,res)=>res.render('registerWorker'));
 
 
 router.post('/registerClient',(req,res)=>{
-    const {name,contact,longitude,latitude,password,password2}=req.body;
+    const {name,username,location,contact_no,email, password,password2}=req.body;
 
     let errors =[];
     //checking if required fields are filled or not
@@ -131,28 +131,37 @@ router.post('/registerWorker',(req,res)=>{
 //     }
 // }
 
-const findcountc=async(value)=>{
+const findcountc=async(value1, value2)=>{
     try{
-        const data=await Client.find({name: value}).countDocuments();
+        const data=await Client.find({$and: [{name: value1}, {password: value2}]}).countDocuments();
         return data
     }catch(error){
         console.log(error.message)
     }
 }
 
-const findcountw=async(value)=>{
+const findcountw=async(value1, value2)=>{
+    try{
+        const data=await Worker.find({$and: [{name: value1}, {password: value2}]}).countDocuments();
+        return data
+    }catch(error){
+        console.log(error.message)
+    }
+}
+
+const find_recommended_cards=async(value)=>{
     try{
         const data=await Worker.find({name: value}).countDocuments();
         return data
     }catch(error){
         console.log(error.message)
     }
-}
+} 
 
 // login
 router.post('/login',async (req, res)=>{
-    const result1=findcountc(req.body.name)
-    const result2=findcountw(req.body.name)
+    const result1=findcountc(req.body.name, req.body.password)
+    const result2=findcountw(req.body.name, req.body.password)
     if(await result1>0){
         console.log("found in client")
         res.redirect('./client')
@@ -169,7 +178,7 @@ router.get('/logout',(req, res,next)=>{
         req.flash('success_msg','You are now logged out');
     res.redirect('/login');  
     });
-});    
+});  
 
 
 router.get('/')

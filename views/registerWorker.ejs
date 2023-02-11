@@ -18,14 +18,25 @@
             />
           </div>
           <div class="form-group">
-            <label for="contact">contact</label>
+            <label for="name">UserName</label>
             <input
-              type="contact"
-              id="contact"
-              name="contact"
+              type="username"
+              id="username"
+              name="username"
+              class="form-control"
+              placeholder="Enter username"
+              value="<%= typeof username != 'undefined' ? username : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="contact_no">contact</label>
+            <input
+              type="contact_no"
+              id="contact_no"
+              name="contact_no"
               class="form-control"
               placeholder="Enter contact"
-              value="<%= typeof contact != 'undefined' ? contact : '' %>"
+              value="<%= typeof contact_no != 'undefined' ? contact_no : '' %>"
             />
           </div>
           <div class="form-group">
@@ -37,17 +48,6 @@
               class="form-control"
               placeholder="Enter longitude"
               value="<%= typeof longitude != 'undefined' ? longitude : '' %>"
-            />
-          </div>
-          <div class="form-group">
-            <!-- <label for="latitude">latitude</label> -->
-            <input
-              type="latitude"
-              id="latitude"
-              name="latitude"
-              class="form-control"
-              placeholder="Enter latitude"
-              value="<%= typeof latitude != 'undefined' ? latitude : '' %>"
             />
           </div>
           <div class="form-group">

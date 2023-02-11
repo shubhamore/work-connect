@@ -7,15 +7,15 @@ const WorkerUser = require('../models/worker');
 var a=0;
 module.exports = function(passport) {
   passport.use(
-    new LocalStrategy({ usernameField: 'name' }, (name, password, done) => {
+    new LocalStrategy({ usernameField: 'username' }, (username, password, done) => {
       // Match user
       ClientUser.findOne({
-        name: name,
+        username: username,
       }).then(user => {
         if (!user) {
           // return done(null, false, { message: 'That User is not registered' });
           WorkerUser.findOne({
-            name: name
+            username: username
           }).then(worker=>{
             if (!worker) {
               return done(null, false, { message: 'That User is not registered' });

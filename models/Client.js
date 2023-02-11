@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    enail:{
+    email:{
         type: 'string',
         required: true
     },

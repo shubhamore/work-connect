@@ -17,12 +17,13 @@ router.get('/registerWorker',(req,res)=>res.render('registerWorker'));
 
 
 
-router.post('/client',(req,res)=>{
-    const {text}=req.body;
+router.post('/client',async (req,res)=>{
+    const text=req.body.text;
+    // const option =req.body.option.value;
 
-    const newWork=new postWork({
+    const newWork=await postWork({
         // client_id:name,
-        // work_id:select,
+        // work_id:option,
         description:text,
     })
     newWork.save();
@@ -30,14 +31,39 @@ router.post('/client',(req,res)=>{
 
 });
 
+router.post('/editclientuserprofile', async(req,res)=>{
+    // const {name,username,email,contact_no,location}=req.body;
+    const name=req.body.name;
+    const username=req.body.username;
+    const email=req.body.email;
+    const contact_no=req.body.contact_no;
+    const location=req.body.location;
+
+
+    const editedDetails= await Client.updateOne({username :username},{$set: {name:name,
+        email:email,
+        contact_no:contact_no,
+        location:location
+    }});
+    // const editedDetails = Client({
+    //     name:name,
+    //     username:username,
+    //     email:email,
+    //     contact_no:contact_no,
+    //     location:location
+    // })
+    
+    res.send('Changes saved successfully');
+});
+
 
 
 router.post('/registerClient',(req,res)=>{
-    const {name,contact,longitude,latitude,password,password2}=req.body;
-
+    const {name,username,location,contact_no,email,password,password2}=req.body;
+    const localUsername=localStorage.getItem("username");
     let errors =[];
     //checking if required fields are filled or not
-    if(!name || !contact || !longitude || !latitude || !password || !password2){
+    if(!name || !username || !location || !contact_no || !email || !password || !password2){
         errors.push({msg: 'Please fill the required fields'});
     }
 
@@ -52,30 +78,32 @@ router.post('/registerClient',(req,res)=>{
     if (errors.length>0) {
         res.render('registerClient',{
             errors,
-            name,
+            username,
             password,
             password2
         });
     } else {
         // validation done
-        Client.findOne({name:name})
+        Client.findOne({username:username})
         .then(user => {
             if(user){
                 errors.push({msg :'UserName already registered'});
                 res.render('registerClient',{
                     errors,
-                    name,
+                    username,
                     password,
                     password2
                 });  
             }
             else{
                 const newClient =new Client({
-                    name:req.body.name,
-                    contact:req.body.contact,
-                    longitude:req.body.longitude,
-                    latitude:req.body.latitude,
-                    password:req.body.password
+                    name:name,
+                    username:username,
+                    location:location,
+                    contact_no:contact_no,
+                    email:email,
+                    password:password,
+                    password:password2
                 });
                 newClient.save()
                 res.redirect('/login');
@@ -149,7 +177,7 @@ router.post('/registerWorker',(req,res)=>{
 
 const findcountc=async(value)=>{
     try{
-        const data=await Client.find({name: value}).countDocuments();
+        const data=await Client.find({username: value}).countDocuments();
         return data
     }catch(error){
         console.log(error.message)
@@ -158,7 +186,7 @@ const findcountc=async(value)=>{
 
 const findcountw=async(value)=>{
     try{
-        const data=await Worker.find({name: value}).countDocuments();
+        const data=await Worker.find({username: value}).countDocuments();
         return data
     }catch(error){
         console.log(error.message)

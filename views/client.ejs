@@ -25,19 +25,23 @@
         <h1>Have any Issues?</h1>
         <h2 style="margin-bottom: 35px;">We're Here To Help</h2>
       </div>
-      <form style="width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-        <select class="form-select" aria-label="Default select example">
+      <form action="/client" method="POST" style="width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+        <select type="select" id="select" value="select"  class="form-select" aria-label="Default select example">
           <option selected>Open this select categories</option>
           <option value="1">carpentary</option>
           <option value="2">electrician</option>
           <option value="3">cleaning</option>
         </select>
         <div class="form-floating" style="margin: 20px 0;">
-          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+          <textarea type="text" id="text" name="text" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
             style="height: 125px"></textarea>
           <label for="floatingTextarea">Describe Your Issue</label>
         </div>
-        <button type="button" class="btn btn-primary">Submit</button>
+        <button 
+        type="submit"
+        id="submit"
+         class="btn btn-primary"
+         value="Submit">Submit</button>
       </form>
     </div>
     <div

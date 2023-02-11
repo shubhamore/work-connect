@@ -2,17 +2,33 @@ const express= require('express');
 const router=express.Router();
 const bcrypt = require('bcryptjs');
 const alert=require("alert");
-// const passport =require('passport');
+const passport =require('passport');
 
-const User =require('../models/User');
+
 const Client =require('../models/Client');
 const Worker =require('../models/worker');
+const postWork = require('../models/postWork');
 //login
 router.get('/login',(req,res)=>res.render('login'));
 
 //register 
 router.get('/registerClient',(req,res)=>res.render('registerClient'));
 router.get('/registerWorker',(req,res)=>res.render('registerWorker'));
+
+
+
+router.post('/client',(req,res)=>{
+    const {select,text}=req.body;
+
+    const newWork=new postWork({
+        // client_id:name,
+        work_id:select,
+        description:text,
+    })
+    newWork.save();
+    // res.send(alert("Work submitted successfully"));
+
+});
 
 
 

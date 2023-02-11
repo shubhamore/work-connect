@@ -18,14 +18,58 @@
             />
           </div>
           <div class="form-group">
-            <label for="email">Email</label>
+            <label for="contact">contact</label>
             <input
-              type="email"
-              id="email"
-              name="email"
+              type="contact"
+              id="contact"
+              name="contact"
               class="form-control"
-              placeholder="Enter Email"
-              value="<%= typeof email != 'undefined' ? email : '' %>"
+              placeholder="Enter contact"
+              value="<%= typeof contact != 'undefined' ? contact : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="longitude">Enter Locations details</label>
+            <input
+              type="longitude"
+              id="longitude"
+              name="longitude"
+              class="form-control"
+              placeholder="Enter longitude"
+              value="<%= typeof longitude != 'undefined' ? longitude : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <!-- <label for="latitude">latitude</label> -->
+            <input
+              type="latitude"
+              id="latitude"
+              name="latitude"
+              class="form-control"
+              placeholder="Enter latitude"
+              value="<%= typeof latitude != 'undefined' ? latitude : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="experience">Enter years of Experience</label>
+            <input
+              type="experience"
+              id="experience"
+              name="experience"
+              class="form-control"
+              placeholder="Enter years"
+              value="<%= typeof experience != 'undefined' ? experience : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="field_work">Enter Field of work</label>
+            <input
+              type="field_work"
+              id="field_work"
+              name="field_work"
+              class="form-control"
+              placeholder="Enter Field of work"
+              value="<%= typeof field_work != 'undefined' ? field_work : '' %>"
             />
           </div>
           <div class="form-group">

@@ -18,14 +18,36 @@
             />
           </div>
           <div class="form-group">
-            <label for="email">Email</label>
+            <label for="contact">Contact</label>
             <input
-              type="email"
-              id="email"
-              name="email"
+              type="contact"
+              id="contact"
+              name="contact"
               class="form-control"
-              placeholder="Enter Email"
-              value="<%= typeof email != 'undefined' ? email : '' %>"
+              placeholder="Enter Contact"
+              value="<%= typeof contact != 'undefined' ? contact : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="longitude">Enter locations details</label>
+            <input
+              type="longitude"
+              id="longitude"
+              name="longitude"
+              class="form-control"
+              placeholder="Enter longitude"
+              value="<%= typeof longitude != 'undefined' ? longitude : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <!-- <label for="latitude"></label> -->
+            <input
+              type="latitude"
+              id="latitude"
+              name="latitude"
+              class="form-control"
+              placeholder="Enter latitude"
+              value="<%= typeof latitude != 'undefined' ? latitude : '' %>"
             />
           </div>
           <div class="form-group">

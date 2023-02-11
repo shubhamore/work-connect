@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 const passport =require('passport');
 
 const User =require('../models/User');
+const Client =require('../models/Client');
+const Worker =require('../models/worker');
 //login
 router.get('/login',(req,res)=>res.render('login'));
 
@@ -14,11 +16,11 @@ router.get('/registerWorker',(req,res)=>res.render('registerWorker'));
 
 
 router.post('/registerClient',(req,res)=>{
-    const {name,email,password,password2}=req.body;
+    const {name,contact,longitude,latitude,password,password2}=req.body;
 
     let errors =[];
     //checking if required fields are filled or not
-    if(!name || !email || !password || !password2){
+    if(!name || !contact || !longitude || !latitude || !password || !password2){
         errors.push({msg: 'Please fill the required fields'});
     }
 
@@ -33,38 +35,40 @@ router.post('/registerClient',(req,res)=>{
     if (errors.length>0) {
         res.render('registerClient',{
             errors,
-            email,
+            name,
             password,
             password2
         });
     } else {
         // validation done
-        User.findOne({email:email})
+        Client.findOne({name:name})
         .then(user => {
             if(user){
-                errors.push({msg :'Email already registered'});
+                errors.push({msg :'UserName already registered'});
                 res.render('registerClient',{
                     errors,
-                    email,
+                    name,
                     password,
                     password2
                 });  
             }
             else{
-                const newUser =new User({
+                const newClient =new Client({
                     name,
-                    email,
+                    contact,
+                    longitude,
+                    latitude,
                     password
                 });
 
                 //hashing the password
                 bcrypt.genSalt(10,(err,salt)=>
-                bcrypt.hash(newUser.password,salt,(err,hash)=>{
+                bcrypt.hash(newClient.password,salt,(err,hash)=>{
                     if (err) throw err;
 
-                    newUser.password = hash;    
+                    newClient.password = hash;    
                     //save the new user
-                    newUser.save()
+                    newClient.save()
                     .then(user=>{
                         req.flash('success_msg','You are now registered and can log in');
                         res.redirect('/user/login');
@@ -76,11 +80,11 @@ router.post('/registerClient',(req,res)=>{
     }
 });
 router.post('/registerWorker',(req,res)=>{
-    const {name,email,password,password2}=req.body;
+    const {name,contact,longitude,latitude,experience,field_work,password,password2}=req.body;
 
     let errors =[];
     //checking if required fields are filled or not
-    if(!name || !email || !password || !password2){
+    if(!name || !contact ||!longitude ||!latitude ||!experience || !field_work || !password || !password2){
         errors.push({msg: 'Please fill the required fields'});
     }
 
@@ -95,38 +99,43 @@ router.post('/registerWorker',(req,res)=>{
     if (errors.length>0) {
         res.render('registerWorker',{
             errors,
-            email,
+            name,
             password,
             password2
         });
     } else {
         // validation done
-        User.findOne({email:email})
+        Worker.findOne({name:name})
         .then(user => {
             if(user){
-                errors.push({msg :'Email already registered'});
+                errors.push({msg :'Username already registered'});
                 res.render('registerWorker',{
                     errors,
-                    email,
+                    name,
                     password,
                     password2
                 });  
             }
             else{
-                const newUser =new User({
+                const newWorkerUser =new Worker({
                     name,
-                    email,
-                    password
+                    contact,
+                    longitude,
+                    latitude,
+                    experience,
+                    field_work,
+                    password,
+                    password2
                 });
 
                 //hashing the password
                 bcrypt.genSalt(10,(err,salt)=>
-                bcrypt.hash(newUser.password,salt,(err,hash)=>{
+                bcrypt.hash(newWorkerUser.password,salt,(err,hash)=>{
                     if (err) throw err;
 
-                    newUser.password = hash;    
+                    newWorkerUser.password = hash;    
                     //save the new user
-                    newUser.save()
+                    newWorkerUser.save()
                     .then(user=>{
                         req.flash('success_msg','You are now registered and can log in');
                         res.redirect('/user/login');

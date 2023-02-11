@@ -5,16 +5,13 @@ const UserSchema = new mongoose.Schema({
         type: 'string',
         required: true
     },
-    contact:{
-        type: Number,
-        required: true
+    worker_id: {
+        type: 'string',
+        required: true,
+        
     },
-    longitude:{
-        type: Number,
-        required: true
-    },
-    latitude:{
-        type: Number,
+    location:{
+        type: 'string',
         required: true
     },
     experience:{
@@ -22,6 +19,18 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     field_work:{
+        type: Array,
+        required: true
+    },
+    contact_no:{
+        type: 'string',
+        required: true
+    },
+    email:{
+        type: 'string',
+        required: true
+    },
+    id_proof:{
         type: 'string',
         required: true
     },

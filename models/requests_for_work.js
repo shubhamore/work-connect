@@ -1,32 +1,24 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-    name: {
+    work_id: {
         type: 'string',
         required: true
     },
-    username:{
+    client_id:{
+        type: 'string',
+        required: true
+    },
+    work:{
         type: 'string',
         required: true
     },
     location:{
         type: 'string',
         required: true
-    },
-    contact_no:{
-        type: Number,
-        required: true
-    },
-    enail:{
-        type: 'string',
-        required: true
-    },
-    password:{
-        type: 'string',
-        required: true
     }
 });
 
-const Client =mongoose.model('Client',UserSchema);
+const Requests =mongoose.model('Requests',UserSchema);
 
-module.exports = Client;
+module.exports = Requests;

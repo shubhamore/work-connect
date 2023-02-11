@@ -54,6 +54,11 @@
     width: 100%;
     border-radius: 10px;
 }
+#temp2{
+    margin-top: 30px;
+    width: 100%;
+    border-radius: 10px;
+}
 
 #box #form{
     margin: 20px 0;
@@ -67,6 +72,11 @@
    
     /* justify-content: center; */
 }
+
+.txt_db button{
+    width: 100%;
+}
+
 .txt_db label{
     display: flex;
     font-size: 18px;

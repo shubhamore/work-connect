@@ -134,7 +134,6 @@ router.post('/registerWorker',(req,res)=>{
 const findcountc=async(value)=>{
     try{
         const data=await Client.find({name: value}).countDocuments();
-        console.log(data)
         return data
     }catch(error){
         console.log(error.message)
@@ -144,7 +143,6 @@ const findcountc=async(value)=>{
 const findcountw=async(value)=>{
     try{
         const data=await Worker.find({name: value}).countDocuments();
-        console.log(data)
         return data
     }catch(error){
         console.log(error.message)

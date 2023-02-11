@@ -5,10 +5,9 @@ const UserSchema = new mongoose.Schema({
         type: 'string',
         required: true
     },
-    worker_id: {
+    username: {
         type: 'string',
         required: true,
-        
     },
     location:{
         type: 'string',

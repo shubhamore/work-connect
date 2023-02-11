@@ -4,9 +4,11 @@ const bcrypt = require('bcryptjs');
 const alert=require("alert");
 // const passport =require('passport');
 
-const User =require('../models/User');
 const Client =require('../models/Client');
 const Worker =require('../models/worker');
+const Work =require('../models/work');
+const Requests =require('../modelsrequests');
+const Requestsforwork =require('../models/requests_for_work');
 //login
 router.get('/login',(req,res)=>res.render('login'));
 
@@ -21,7 +23,7 @@ router.post('/registerClient',(req,res)=>{
 
     let errors =[];
     //checking if required fields are filled or not
-    if(!name || !contact || !longitude || !latitude || !password || !password2){
+    if(!name || !username || !location || !contact_no || !email || !password || !password2){
         errors.push({msg: 'Please fill the required fields'});
     }
 
@@ -56,10 +58,11 @@ router.post('/registerClient',(req,res)=>{
             else{
                 const newClient =new Client({
                     name:req.body.name,
-                    contact:req.body.contact,
-                    longitude:req.body.longitude,
-                    latitude:req.body.latitude,
-                    password:req.body.password
+                    username:req.body.username,
+                    location:req.body.location,
+                    contact_no:req.body.contact_no,
+                    email:req.body.email,
+                    password: req.body.password
                 });
                 newClient.save()
                 res.redirect('/login');
@@ -68,11 +71,11 @@ router.post('/registerClient',(req,res)=>{
     }
 });
 router.post('/registerWorker',(req,res)=>{
-    const {name,contact,longitude,latitude,experience,field_work,password,password2}=req.body;
+    const {name,worker_id,location,experience,field_work,contact_no,email,id_proof,password,password2}=req.body;
 
     let errors =[];
     //checking if required fields are filled or not
-    if(!name || !contact ||!longitude ||!latitude ||!experience || !field_work || !password || !password2){
+    if(!name || !worker_id ||!location ||!experience ||!field_work || !contact_no || !email || !id_proof || !password || !password2){
         errors.push({msg: 'Please fill the required fields'});
     }
 
@@ -107,11 +110,13 @@ router.post('/registerWorker',(req,res)=>{
             else{
                 const newWorkerUser =new Worker({
                     name:req.body.name,
-                    contact:req.body.contact,
-                    longitude:req.body.longitude,
-                    latitude:req.body.latitude,
+                    worker_id:req.body.worker_id,
+                    location:req.body.location,
                     experience:req.body.experience,
                     field_work:req.body.field_work,
+                    contact_no:req.body.contact_no,
+                    email:req.body.email,
+                    id_proof:req.body.id_proof,
                     password:req.body.password
                 });
                 newWorkerUser.save()
@@ -133,7 +138,7 @@ router.post('/registerWorker',(req,res)=>{
 
 const findcountc=async(value1, value2)=>{
     try{
-        const data=await Client.find({$and: [{name: value1}, {password: value2}]}).countDocuments();
+        const data=await Client.find({$and: [{username: value1}, {password: value2}]}).countDocuments();
         return data
     }catch(error){
         console.log(error.message)
@@ -142,39 +147,90 @@ const findcountc=async(value1, value2)=>{
 
 const findcountw=async(value1, value2)=>{
     try{
-        const data=await Worker.find({$and: [{name: value1}, {password: value2}]}).countDocuments();
+        const data=await Worker.find({$and: [{username: value1}, {password: value2}]}).countDocuments();
         return data
     }catch(error){
         console.log(error.message)
     }
 }
+// work_id: {
+//     type: 'string',
+//     required: true
+// },
+// client_id:{
+//     type: 'string',
+//     required: true
+// },
+// work:{
+//     type: 'string',
+//     required: true
+// },
+// location:{
+//     type: 'string',
+//     required: true
+// }
 
-const find_recommended_cards=async(value)=>{
+const find_all_cards=async(value)=>{
     try{
-        const data=await Worker.find({name: value}).countDocuments();
+        const data=await Requests.find({});
         return data
     }catch(error){
         console.log(error.message)
     }
 } 
 
+router.get('/worker_all',async (req, res)=>{
+    const data=find_all_cards(current_username)
+    res.redirect('./all_works', data)
+});
+
+const find_recommended_cards=async(value)=>{
+    try{
+        const data=await Worker.find({username: value});
+        const result=data.field_work
+        let str="[{"
+        for(let i=0;i<result.length;i++){
+            const count=await Requestsforwork.find({work: result[i]}).countDocuments();
+            const data1=await Requestsforwork.find({work: result[i]});
+            for(let j=0;j<count;j++){
+                str+="work"+':"'+data1[j].work+'",client_id:"'+data1[j].client_id+'"'
+                if(i!=result.length && j!=count){
+                    str+=","
+                }
+            }
+        }
+        str+="}]"
+        const a = await JSON.parse(str)
+        return a
+    }catch(error){
+        console.log(error.message)
+    }
+} 
+
+router.get('/worker',async (req, res)=>{
+    const data=find_recommended_cards(current_username)
+    res.redirect('./worker', data)
+});
+
+var current_username=undefined;
+
 // login
 router.post('/login',async (req, res)=>{
-    const result1=findcountc(req.body.name, req.body.password)
-    const result2=findcountw(req.body.name, req.body.password)
+    const result1=findcountc(req.body.username, req.body.password)
+    const result2=findcountw(req.body.username, req.body.password)
     if(await result1>0){
-        console.log("found in client")
         res.redirect('./client')
     }
     else if(await result2>0){
-        console.log("found in worker")
-        res.redirect('./worker')
+        const data=find_recommended_cards(req.body.username)
+        res.redirect('./worker', data)
     }
 });
 
 router.get('/logout',(req, res,next)=>{
     req.logout(function(err){
         if(err){return next(err);}
+        current_username=undefined
         req.flash('success_msg','You are now logged out');
     res.redirect('/login');  
     });

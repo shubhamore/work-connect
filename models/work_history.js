@@ -1,32 +1,32 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-    name: {
+    client_id: {
         type: 'string',
         required: true
     },
-    username:{
+    worker_id:{
         type: 'string',
+        required: true
+    },
+    work:{
+        type: 'string',
+        required: true
+    },
+    date:{
+        type: Date,
         required: true
     },
     location:{
         type: 'string',
         required: true
     },
-    contact_no:{
+    amount:{
         type: Number,
-        required: true
-    },
-    enail:{
-        type: 'string',
-        required: true
-    },
-    password:{
-        type: 'string',
         required: true
     }
 });
 
-const Client =mongoose.model('Client',UserSchema);
+const Work_History =mongoose.model('Work_History',UserSchema);
 
-module.exports = Client;
+module.exports = Work_History;

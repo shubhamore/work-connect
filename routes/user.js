@@ -62,7 +62,7 @@ router.post('/registerClient',(req,res)=>{
                     password:req.body.password
                 });
                 newClient.save()
-                res.redirect('/user/login');
+                res.redirect('/login');
             }
         });
     }
@@ -115,7 +115,7 @@ router.post('/registerWorker',(req,res)=>{
                     password:req.body.password
                 });
                 newWorkerUser.save()
-                res.redirect('/user/login');
+                res.redirect('/login');
             }
         });
     }
@@ -155,11 +155,11 @@ router.post('/login',async (req, res)=>{
     const result2=findcountw(req.body.name)
     if(await result1>0){
         console.log("found in client")
-        res.render('client')
+        res.redirect('./client')
     }
     else if(await result2>0){
         console.log("found in worker")
-        res.render('worker_index.ejs')
+        res.redirect('./worker')
     }
 });
 
@@ -167,7 +167,7 @@ router.get('/logout',(req, res,next)=>{
     req.logout(function(err){
         if(err){return next(err);}
         req.flash('success_msg','You are now logged out');
-    res.redirect('/user/login');  
+    res.redirect('/login');  
     });
 });    
 

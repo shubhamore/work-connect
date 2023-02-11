@@ -25,4 +25,4 @@ router.get('/client/userprofile',(req,res)=>{
 })
 
 
-module.exports = router;
+module.exports=router;

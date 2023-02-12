@@ -1,20 +1,20 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-    client_id: {
+    client_id:{
         type: 'string',
         required: true
     },
-    worker_id:{
+    work_id:{
         type: 'string',
         required: true
     },
-    amount: {
-        type: Number,
+    description:{
+        type: 'string',
         required: true
     }
 });
 
-const Quotation =mongoose.model('Quotation',UserSchema);
+const Requests =mongoose.model('Requests',UserSchema);
 
-module.exports = Quotation;
+module.exports = Requests;

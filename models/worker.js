@@ -8,7 +8,6 @@ const UserSchema = new mongoose.Schema({
     username: {
         type: 'string',
         required: true,
-        
     },
     location:{
         type: 'string',

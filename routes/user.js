@@ -7,7 +7,9 @@ const alert=require("alert");
 const Client =require('../models/Client');
 const Worker =require('../models/worker');
 const Work =require('../models/work');
-const Requests =require('../modelsrequests');
+const Quotation =require('../models/quotation');
+const Requests =require('../models/requests');
+const History =require('../models/work_history');
 const Requestsforwork =require('../models/requests_for_work');
 //login
 router.get('/login',(req,res)=>res.render('login'));
@@ -232,10 +234,79 @@ router.get('/logout',(req, res,next)=>{
         if(err){return next(err);}
         current_username=undefined
         req.flash('success_msg','You are now logged out');
-    res.redirect('/login');  
+    res.redirect('/login');
     });
 });  
 
+// for worker to apply to a work
+// router.post('/apply',async (req,res)=>{
+//     const amount=req.body.amount;
+//     const client_id=req.body.client_id;
+
+//     const quotation_save=await Quotation({
+//         client_id:client_id,
+//         worker_id:current_username,
+//         amount:amount,
+//     })
+//     quotation_save.save();
+//     res.redirect('/worker');
+// });
+
+// for accepting work
+router.post('/accept',async (req,res)=>{
+    const amount=req.body.amount;
+    const client_id=req.body.client_id;
+
+    const quotation_save=await Quotation({
+        client_id:client_id,
+        worker_id:current_username,
+        amount:amount,
+    })
+    quotation_save.save();
+    res.redirect('/worker');
+});
+
+// for work history
+router.post('/history',async (req,res)=>{
+    const data=await History.find({});
+    res.redirect('/history', {data});
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// const express =require('express');
+// const router =express.Router();
+
+// router.get('/',(req,res)=>{
+//     res.render('welcome');
+// });
+// //dashboard page
+// router.get('/dashboard',(req,res)=>res.render('dashboard'));
+
+// //worker page
+// router.get('/worker',(req,res)=>{
+//     if(current_username!=undefined)
+//         res.render('worker_index')}
+//  );
+// router.get('/worker_all',(req,res)=>
+// res.render('all_works'));
+// router.get('/worker_applications',(req,res)=>
+// res.render('my_applications'));
+
+
+// //this is only for test----delete this afterwards
+// router.get('/client',(req,res)=>{
+//     res.render('client')
+// })
+// router.get('/client/pastIssues',(req,res)=>{
+//     res.render('pastIssues')
+// })
+// router.get('/client/userprofile',(req,res)=>{
+//     res.render('userprofile')
+// })
+
+
+// module.exports=router;
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 router.get('/')
 

@@ -12,17 +12,9 @@ const UserSchema = new mongoose.Schema({
     amount: {
         type: Number,
         required: true
-    },
-    days:{
-        type: Number,
-        required: true
-    },
-    no_of_workers:{
-        type: Number,
-        required: true
     }
 });
 
-const Work_History =mongoose.model('Work_History',UserSchema);
+const Quotation =mongoose.model('Quotation',UserSchema);
 
-module.exports = Work_History;
+module.exports = Quotation;

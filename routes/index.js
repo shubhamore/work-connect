@@ -8,9 +8,12 @@ router.get('/',(req,res)=>{
 router.get('/dashboard',(req,res)=>res.render('dashboard'));
 
 //worker page
-router.get('/worker',(req,res)=>res.render('worker_index'));
-router.get('/worker_all',(req,res)=>res.render('all_works'));
-router.get('/worker_applications',(req,res)=>res.render('my_applications'));
+router.get('/worker',(req,res)=>
+res.render('worker_index'));
+router.get('/worker_all',(req,res)=>
+res.render('all_works'));
+router.get('/worker_applications',(req,res)=>
+res.render('my_applications'));
 
 
 //this is only for test----delete this afterwards

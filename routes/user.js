@@ -91,7 +91,6 @@ router.post('/editworkerprofile', async(req,res)=>{
 
 router.post('/registerClient',(req,res)=>{
     const {name,username,location,contact_no,email,password,password2}=req.body;
-    const localUsername=localStorage.getItem("username");
     let errors =[];
     //checking if required fields are filled or not
     if(!name || !username || !location || !contact_no || !email || !password || !password2){

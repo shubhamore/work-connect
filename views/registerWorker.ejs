@@ -18,7 +18,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="name">UserName</label>
+            <label for="username">UserName</label>
             <input
               type="username"
               id="username"
@@ -36,18 +36,18 @@
               name="contact_no"
               class="form-control"
               placeholder="Enter contact"
-              value="<%= typeof contact_no != 'undefined' ? contact_no : '' %>"
+              value="<%= typeof contact_no != 'undefined' ? contact : '' %>"
             />
           </div>
           <div class="form-group">
-            <label for="longitude">Enter Locations details</label>
+            <label for="location">Enter Locations details</label>
             <input
-              type="longitude"
-              id="longitude"
-              name="longitude"
+              type="location"
+              id="location"
+              name="location"
               class="form-control"
-              placeholder="Enter longitude"
-              value="<%= typeof longitude != 'undefined' ? longitude : '' %>"
+              placeholder="Enter location"
+              value="<%= typeof location != 'undefined' ? location : '' %>"
             />
           </div>
           <div class="form-group">
@@ -59,6 +59,28 @@
               class="form-control"
               placeholder="Enter years"
               value="<%= typeof experience != 'undefined' ? experience : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="Enter email"
+              value="<%= typeof email != 'undefined' ? email : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="id_proof">email</label>
+            <input
+              type="id_proof"
+              id="id_proof"
+              name="id_proof"
+              class="form-control"
+              placeholder="Upload id_proof"
+              value="<%= typeof id_proof != 'undefined' ? id_proof : '' %>"
             />
           </div>
           <div class="form-group">

@@ -57,6 +57,37 @@ router.post('/editclientuserprofile', async(req,res)=>{
 });
 
 
+router.post('/editworkerprofile', async(req,res)=>{
+    // const {name,username,email,contact_no,location}=req.body;
+    const name=req.body.name;
+    const username=req.body.username;
+    const email=req.body.email;
+    const contact_no=req.body.contact_no;
+    const location=req.body.location;
+    const field_work=req.body.field_work;
+    const id_proof=req.body.id_proof;
+
+
+
+    const editedDetails= await Worker.updateOne({username :username},{$set: {name:name,
+        email:email,
+        contact_no:contact_no,
+        location:location,
+        field_work:field_work,
+
+    }});
+    // const editedDetails = Client({
+    //     name:name,
+    //     username:username,
+    //     email:email,
+    //     contact_no:contact_no,
+    //     location:location
+    // })
+    
+    res.send('Changes saved successfully');
+});
+
+
 
 router.post('/registerClient',(req,res)=>{
     const {name,username,location,contact_no,email,password,password2}=req.body;
@@ -112,11 +143,11 @@ router.post('/registerClient',(req,res)=>{
     }
 });
 router.post('/registerWorker',(req,res)=>{
-    const {name,contact,longitude,latitude,experience,field_work,password,password2}=req.body;
+    const {name,username,location,experience,field_work,contact_no,email,id_proof,password,password2}=req.body;
 
     let errors =[];
     //checking if required fields are filled or not
-    if(!name || !contact ||!longitude ||!latitude ||!experience || !field_work || !password || !password2){
+    if(!name || !username ||!location ||!contact_no ||!experience || !field_work || !email || !id_proof || !password || !password2){
         errors.push({msg: 'Please fill the required fields'});
     }
 
@@ -131,32 +162,35 @@ router.post('/registerWorker',(req,res)=>{
     if (errors.length>0) {
         res.render('registerWorker',{
             errors,
-            name,
+            username,
             password,
             password2
         });
     } else {
         // validation done
-        Worker.findOne({name:name})
+        Worker.findOne({username:username})
         .then(user => {
             if(user){
                 errors.push({msg :'Username already registered'});
                 res.render('registerWorker',{
                     errors,
-                    name,
+                    username,
                     password,
                     password2
                 });  
             }
             else{
                 const newWorkerUser =new Worker({
-                    name:req.body.name,
-                    contact:req.body.contact,
-                    longitude:req.body.longitude,
-                    latitude:req.body.latitude,
-                    experience:req.body.experience,
-                    field_work:req.body.field_work,
-                    password:req.body.password
+                    name:name,
+                    username:username,
+                    location:location,
+                    experience:experience,
+                    field_work:field_work,
+                    contact_no:contact_no,
+                    email:email,
+                    id_proof:id_proof,
+                    password:password,
+                    // password2:password2
                 });
                 newWorkerUser.save()
                 res.redirect('/login');
@@ -175,9 +209,9 @@ router.post('/registerWorker',(req,res)=>{
 //     }
 // }
 
-const findcountc=async(value)=>{
+const findcountc=async(value1,value2)=>{
     try{
-        const data=await Client.find({username: value}).countDocuments();
+        const data=await Client.find({$and: [{username: value1},{password:value2}]}).countDocuments();
         return data
     }catch(error){
         console.log(error.message)
@@ -195,13 +229,18 @@ const findcountw=async(value1,value2)=>{
 
 // login
 router.post('/login',async (req, res)=>{
-    const result1=findcountc(req.body.name,req.body.password)
-    const result2=findcountw(req.body.name,req.body.password)
+    const result1=findcountc(req.body.username,req.body.password)
+    const result2=findcountw(req.body.username,req.body.password)
+    
     if(await result1>0){
+        console.log(result1);
+    console.log(result2);
         console.log("found in client")
         res.redirect('./client')
     }
     else if(await result2>0){
+        // console.log(result1);
+    console.log(result2);
         console.log("found in worker")
         res.redirect('./worker')
     }
